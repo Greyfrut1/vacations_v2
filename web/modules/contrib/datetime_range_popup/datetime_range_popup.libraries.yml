@@ -1,0 +1,20 @@
+datetime_range_popup:
+  version: 1.x
+  js:
+    https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js: { type: external }
+    https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.5.10/js/ripples.min.js: { type: external }
+    https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.5.10/js/material.min.js: { type: external }
+    https://momentjs.com/downloads/moment-with-locales.min.js: { type: external }
+    js/datetime_range_popup.js: {}
+    js/drupal.datetime_range_popup.js: {}
+  css:
+    theme:
+      https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.5.10/css/ripples.min.css: { type: external }
+      css/datetime_range_popup.css: {}
+      https://fonts.googleapis.com/css?family=Roboto:400,500: { type: external }
+      https://fonts.googleapis.com/icon?family=Material+Icons: { type: external }
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/drupalSettings
+    - core/jquery.once
