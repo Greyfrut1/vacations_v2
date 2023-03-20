@@ -38,6 +38,12 @@ field.value.smartdate:
     default_date:
       type: string
       label: 'Default start date value'
+    min:
+      type: string
+      label: 'Minimum Date'
+    max:
+      type: string
+      label: 'Maximum Date'
 
 field.formatter.settings.smartdate_default:
   type: field.formatter.settings.datetime_default
@@ -66,6 +72,10 @@ field.formatter.settings.smartdate_default:
     time_wrapper:
       type: boolean
       label: 'Add time wrapper'
+      translation context: 'Smart date display'
+    localize:
+      type: boolean
+      label: 'Add JS localization'
       translation context: 'Smart date display'
 
 field.formatter.settings.smartdate_duration:
@@ -143,6 +153,14 @@ field.widget.settings.smartdate_default:
     hide_date:
       type: boolean
       label: 'Hide end date unless different'
+
+field.widget.settings.smartdate_inline:
+  type: field.widget.settings.smartdate_default
+  label: 'Smart Date, date-only range widget settings'
+  mapping:
+    separator:
+      type: string
+      label: 'Separator string (separating start and end date)'
 
 field.widget.settings.smartdate_timezone:
   type: mapping

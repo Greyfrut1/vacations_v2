@@ -5,7 +5,14 @@
 (function ($, once) {
   // Override clientside validation jquery validation options.
   // We do this to display the error markup same as in inline_form_errors.
-  once('cvjquery', 'document').forEach(element => element.on('cv-jquery-validate-options-update', function (event, options) {
+  // Using once can not use `window` or `document` directly.
+  if (!once('cvjquery', 'html').length) {
+    // Early return avoid changing the indentation
+    // for the rest of the code.
+    return;
+  }
+
+  $(document).on('cv-jquery-validate-options-update', function (event, options) {
     options.errorElement = 'strong';
     options.showErrors = function(errorMap, errorList) {
       // First remove all errors.
@@ -23,5 +30,5 @@
         }
       });
     };
-  }));
+  });
 })(jQuery, once);

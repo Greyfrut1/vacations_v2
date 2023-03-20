@@ -86,32 +86,18 @@ class IntegerFieldValidationRule extends ConfigurableFieldValidationRuleBase {
 	//$settings = $this->rule->settings;
     if ($value !== '' && !is_null($value)) {
       $options = array();
-      
-        $value = (int)$value;
-      
-      $node = \Drupal::routeMatch()->getParameter('node');
-      $token_service = \Drupal::token();
-      
-      if (!empty($settings['min'])){
-      //$settings['min'] = $settings['min'];
-      $settings['min'] = $token_service->replace($settings['min'], ['node' => $node]);
-      $settings['min'] = (int)$settings['min'];
-      }
-      
-      if (!empty($settings['max'])){
-      //$settings['max'] = strtr($settings['max'], $tokens);
-      $settings['max'] = $token_service->replace($settings['max'], ['node' => $node]);
-      $settings['max'] = (int)$settings['max'];
-      }
-      
+	
+	$node = \Drupal::routeMatch()->getParameter('node');
+	$token_service = \Drupal::token();
+
       if (isset($settings['min']) && $settings['min'] != '') {
-	    $min = $settings['min'];
-        $options['options']['min_range'] = $min;
+	$min = $settings['min'];
+	$options['options']['min_range'] = $min;
       }
       if (isset($settings['max']) && $settings['max'] != '') {
-	    $max = $settings['max'];
+	$max = $token_service->replace($settings['max'],['node' => $node]);
         $options['options']['max_range'] = $max;
-      }  
+      } 
   
       if (FALSE === filter_var($value, FILTER_VALIDATE_INT, $options)) {
         $context->addViolation($rule->getErrorMessage());

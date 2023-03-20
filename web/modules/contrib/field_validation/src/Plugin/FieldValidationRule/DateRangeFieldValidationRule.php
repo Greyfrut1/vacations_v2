@@ -159,10 +159,10 @@ class DateRangeFieldValidationRule extends ConfigurableFieldValidationRuleBase {
         $date_str = substr($date_str, $str_place);
       }
 
-      if (!empty($settings['min'])  && $date_str <  substr($settings['min'], $str_place)) {
+      if (!empty($settings['min'])  && $date_str < $settings['min']) {
         $flag = TRUE;
       }
-      if (!empty($settings['max'])  && $date_str > substr($settings['max'], $str_place)) {
+      if (!empty($settings['max'])  && $date_str > $settings['max']) {
         $flag = TRUE;
       }
 

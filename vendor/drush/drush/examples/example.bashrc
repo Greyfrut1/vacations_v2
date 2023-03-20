@@ -1,3 +1,4 @@
+export PATH="$HOME/.composer/vendor/bin:$PATH"
 # -*- mode: shell-script; mode: flyspell-prog; ispell-local-dictionary: "american" -*-
 #
 # Example bash aliases to improve your Drush experience with bash.

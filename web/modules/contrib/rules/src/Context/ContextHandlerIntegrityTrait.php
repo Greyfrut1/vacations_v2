@@ -12,6 +12,8 @@ use Drupal\rules\Context\ContextProviderInterface;
 use Drupal\rules\Exception\IntegrityException;
 use Drupal\rules\Engine\IntegrityViolation;
 use Drupal\rules\Engine\IntegrityViolationList;
+use Drupal\Core\Entity\Plugin\DataType\EntityAdapter;
+use Drupal\Core\Entity\Plugin\DataType\EntityReference;
 
 /**
  * Extends the context handler trait with support for checking integrity.
@@ -132,23 +134,51 @@ trait ContextHandlerIntegrityTrait {
     // Compare data types. For now, fail if they are not equal.
     // @todo Add support for matching based upon type-inheritance.
     $target_type = $context_definition->getDataDefinition()->getDataType();
+    $provided_type = $provided->getDataType();
 
-    // Special case any and entity target types for now.
-    if ($target_type == 'any' || ($target_type == 'entity' && strpos($provided->getDataType(), 'entity:') !== FALSE)) {
+    // Always allow a target type of 'any'.
+    if ($target_type == 'any') {
       return;
     }
-    if ($target_type != $provided->getDataType()) {
-      $expected_type_problem = $context_definition->getDataDefinition()->getDataType();
-      $violation = new IntegrityViolation();
-      $violation->setMessage($this->t('Expected a @expected_type data type for context %context_name but got a @provided_type data type instead.', [
-        '@expected_type' => $expected_type_problem,
-        '%context_name' => $context_definition->getLabel(),
-        '@provided_type' => $provided->getDataType(),
-      ]));
-      $violation->setContextName($context_name);
-      $violation->setUuid($this->getUuid());
-      $violation_list->add($violation);
+
+    // Valid if the target type matches the provided type exactly.
+    if ($target_type == $provided_type) {
+      return;
     }
+
+    // When context is EntityAdapter and the provided type is an EntityAdapter
+    // or EntityReference then check the provided entity type constraint.
+    $provided_type_text = $provided_type;
+    if ($context_definition->getDataDefinition()->getClass() == EntityAdapter::class
+        && ($provided->getClass() == EntityAdapter::class || $provided->getClass() == EntityReference::class)) {
+
+      // If the target type is an unqualified entity then there is no need to do
+      // a constraint check.
+      if ($target_type == 'entity') {
+        return;
+      }
+
+      // getConstraints()['EntityType'] will be 'node', 'user', 'user_role' etc.
+      $provided_type_constraint = $provided->getConstraints()['EntityType'];
+      // Explode $target_type to get the second part of the entity qualifier.
+      $target_type_constraint = explode(':', $target_type)[1];
+      // If the two constraint entity types match then this reference is valid.
+      if ($provided_type_constraint == $target_type_constraint) {
+        return;
+      }
+      $provided_type_text = "$provided_type_constraint $provided_type_text";
+    }
+
+    // None of the above cases pass, so fail the validation.
+    $violation = new IntegrityViolation();
+    $violation->setMessage($this->t('Expected a @target_type data type for context %context_name but got a @provided_type data type instead.', [
+      '@target_type' => $target_type,
+      '%context_name' => $context_definition->getLabel(),
+      '@provided_type' => $provided_type_text,
+    ]));
+    $violation->setContextName($context_name);
+    $violation->setUuid($this->getUuid());
+    $violation_list->add($violation);
   }
 
 }

@@ -157,10 +157,10 @@ $settings['skip_permissions_hardening'] = TRUE;
 
 // Docksal DB connection settings.
 $databases['default']['default'] = array (
-  'database' => getenv('MYSQL_DATABASE'),
-  'username' => getenv('MYSQL_USER'),
-  'password' => getenv('MYSQL_PASSWORD'),
-  'host' => getenv('MYSQL_HOST'),
+  'database' => 'db',
+  'username' => 'admin',
+  'password' => 'admin',
+  'host' => '127.0.0.1',
   'port' => '3306',
   'driver' => 'mysql',
 );
