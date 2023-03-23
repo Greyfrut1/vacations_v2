@@ -1,0 +1,14 @@
+.sub_menu{
+  flex-basis: 100%;
+  justify-content: end;
+  display: flex;
+}
+.sub_menu li{
+display: inline-block;
+}
+.sub_menu li:not(:last-child){
+margin-right: 2.25em;
+}
+.site-header__inner__container{
+flex-wrap: wrap;
+}

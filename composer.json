@@ -22,6 +22,7 @@
         "drupal/bigint": "^1.1",
         "drupal/bpmn_io": "^1.1",
         "drupal/clientside_validation": "^4.0",
+        "drupal/conditional_fields": "^4.0@alpha",
         "drupal/core-composer-scaffold": "^9",
         "drupal/core-project-message": "^9",
         "drupal/core-recommended": "^9",
@@ -46,8 +47,10 @@
         "drupal/smart_date": "^3.6",
         "drupal/twig_field": "^1.1",
         "drupal/twig_tweak": "^2.10",
+        "drupal/vapn": "^1.5",
         "drupal/verf": "^2.0",
         "drupal/views_add_button": "^1.8",
+        "drupal/views_bulk_operations": "^4.2",
         "drush/drush": "^10.2"
     },
     "conflict": {

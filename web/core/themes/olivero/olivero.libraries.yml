@@ -5,6 +5,7 @@ global-styling:
       css/base/fonts.css: {}
       css/base/base.css: {}
       css/base/utility.css: {}
+      css/base/mystyle.css: {}
     layout:
       css/layout/layout.css: {}
       css/layout/grid.css: {}
@@ -17,6 +18,7 @@ global-styling:
       css/layout/region-secondary-menu.css: {}
       css/layout/social-bar.css: {}
       css/layout/views.css: {}
+      css/layout/sub-menu.css: {}
     component:
       css/components/block.css: {}
       css/components/breadcrumb.css: {}
@@ -53,6 +55,7 @@ global-styling:
   js:
     js/checkbox.js: {}
     js/navigation-utils.js: {}
+    js/myscript.js: {}
 
   dependencies:
     - core/drupal.element.closest

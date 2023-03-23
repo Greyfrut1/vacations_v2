@@ -1,0 +1,9 @@
+.views-field-field-apr-teamlead-1 .form-select,.views-field-field-apr-teamlead .form-select, .views-field-field-apr-teamlead-1 .form-item__label, .views-field-field-apr-teamlead .form-item__label{
+display: none !important;
+}
+.field--name-field-date-range, .field--name-field-data-range-not-paid{
+display:none;
+}
+.form-item-field-data-range-not-paid-0-duration{
+display: none;
+}
