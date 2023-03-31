@@ -1,0 +1,25 @@
+{
+    "name": "drupal/sweetalert",
+    "type": "drupal-module",
+    "description": "A beautiful, responsive, customizable, accessible (WAI-ARIA) replacement for JavaScript's popup boxes.",
+    "keywords": [
+        "Drupal",
+        "user interface",
+        "AJAX effects",
+        "UX",
+        "JavaScript"
+    ],
+    "license": "GPL-2.0+",
+    "homepage": "http://drupal.org/project/sweetalert",
+    "authors": [
+        {
+            "name": "Kevin Quillen (kevinquillen)",
+            "homepage": "https://www.drupal.org/u/kevinquillen",
+            "role": "Maintainer"
+        }
+    ],
+    "support": {
+        "issues": "http://drupal.org/project/issues/sweetalert",
+        "source": "http://cgit.drupalcode.org/sweetalert"
+    }
+}

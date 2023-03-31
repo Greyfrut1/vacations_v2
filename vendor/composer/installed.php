@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '43fe147ea8ad4a9bcae0978da28a9f587741f1cc',
+        'reference' => '792f60ea83746d1ab7bd51a5d2ffc72f0a458b93',
         'name' => 'drupal/recommended-project',
         'dev' => true,
     ),
@@ -679,7 +679,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '43fe147ea8ad4a9bcae0978da28a9f587741f1cc',
+            'reference' => '792f60ea83746d1ab7bd51a5d2ffc72f0a458b93',
             'dev_requirement' => false,
         ),
         'drupal/rules' => array(
@@ -716,6 +716,15 @@
             'install_path' => __DIR__ . '/../../web/modules/contrib/smart_date',
             'aliases' => array(),
             'reference' => '3.7.0',
+            'dev_requirement' => false,
+        ),
+        'drupal/sweetalert' => array(
+            'pretty_version' => '2.0.1',
+            'version' => '2.0.1.0',
+            'type' => 'drupal-module',
+            'install_path' => __DIR__ . '/../../web/modules/contrib/sweetalert',
+            'aliases' => array(),
+            'reference' => '2.0.1',
             'dev_requirement' => false,
         ),
         'drupal/tamper' => array(

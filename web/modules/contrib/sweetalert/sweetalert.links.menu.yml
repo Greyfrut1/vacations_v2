@@ -1,0 +1,5 @@
+sweetalert.sandbox:
+  title: SweetAlert sandbox
+  parent: system.admin_config_ui
+  description: 'Try a few example alerts with SweetAlert.'
+  route_name: sweetalert.sandbox

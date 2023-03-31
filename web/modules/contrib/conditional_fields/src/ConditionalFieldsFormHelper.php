@@ -399,6 +399,8 @@ class ConditionalFieldsFormHelper {
       return;
     }
 
+    /** @var \Drupal\Core\Entity\ContentEntityFormInterface $entity_type_id */
+    $entity_type_id = $form_state->getFormObject()->getEntity()->getEntityTypeId();
     $dependent = $form['#conditional_fields'][reset($element['#array_parents'])];
 
     // Check if this field's dependencies were triggered.
@@ -422,7 +424,7 @@ class ConditionalFieldsFormHelper {
             }
             $input_state = (is_null($input_state)) ? [] : $input_state;
             if (isset($dependent['field_parents'][0])) {
-              $field = FieldStorageConfig::loadByName($form['#entity_type'], $dependent['field_parents'][0]);
+              $field = FieldStorageConfig::loadByName($entity_type_id, $dependent['field_parents'][0]);
             }
             else {
               $field = NULL;

@@ -1,0 +1,6 @@
+command:
+  js:
+    /libraries/sweetalert2/sweetalert2.all.min.js: {}
+    js/command.js: {}
+  dependencies:
+    - core/drupal.ajax

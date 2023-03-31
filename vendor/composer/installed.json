@@ -4288,6 +4288,62 @@
             "install-path": "../../web/modules/contrib/smart_date"
         },
         {
+            "name": "drupal/sweetalert",
+            "version": "2.0.1",
+            "version_normalized": "2.0.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/sweetalert.git",
+                "reference": "2.0.1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/sweetalert-2.0.1.zip",
+                "reference": "2.0.1",
+                "shasum": "b6fb5f571a9326e4f588435d09e65304c8b1918c"
+            },
+            "require": {
+                "drupal/core": "^9 || ^10"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "2.0.1",
+                    "datestamp": "1677534975",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "installation-source": "dist",
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "Kevin Quillen (kevinquillen)",
+                    "homepage": "https://www.drupal.org/u/kevinquillen",
+                    "role": "Maintainer"
+                }
+            ],
+            "description": "A beautiful, responsive, customizable, accessible (WAI-ARIA) replacement for JavaScript's popup boxes.",
+            "homepage": "http://drupal.org/project/sweetalert",
+            "keywords": [
+                "AJAX effects",
+                "Drupal",
+                "JavaScript",
+                "UX",
+                "user interface"
+            ],
+            "support": {
+                "source": "http://cgit.drupalcode.org/sweetalert",
+                "issues": "http://drupal.org/project/issues/sweetalert"
+            },
+            "install-path": "../../web/modules/contrib/sweetalert"
+        },
+        {
             "name": "drupal/tamper",
             "version": "1.0.0-alpha3",
             "version_normalized": "1.0.0.0-alpha3",

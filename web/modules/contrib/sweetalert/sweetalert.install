@@ -1,0 +1,36 @@
+<?php
+
+/**
+ * @file
+ * Contains install routines for the module.
+ */
+
+/**
+ * Implements hook_requirements().
+ */
+function sweetalert_requirements($phase) {
+  $requirements = [];
+
+  switch ($phase) {
+    case 'install':
+    case 'runtime':
+      $file_exists = file_exists(DRUPAL_ROOT . '/libraries/sweetalert2/sweetalert2.all.min.js');
+
+      if ($file_exists) {
+        $message = t('SweetAlert plugin detected in %path.', ['%path' => '/libraries/sweetalert2']);
+      }
+      else {
+        $message = t('The SweetAlert plugin was not found. Please <a href=":repository_url" target="_blank">download sweetalert2.all.min.js</a> into the libraries folder in the root (/libraries/sweetalert2).', [':repository_url' => 'https://github.com/sweetalert2/sweetalert2/releases']);
+      }
+
+      $requirements['sweetalert'] = [
+        'title' => t('SweetAlert Plugin'),
+        'description' => $message,
+        'severity' => $file_exists ? REQUIREMENT_OK : REQUIREMENT_ERROR,
+      ];
+
+      break;
+  }
+
+  return $requirements;
+}

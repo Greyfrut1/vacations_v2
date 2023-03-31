@@ -1,0 +1,7 @@
+sweetalert.sandbox:
+  path: '/admin/config/user-interface/sweetalert/sandbox'
+  defaults:
+    _form: 'Drupal\sweetalert\Form\SandboxForm'
+    _title: 'SweetAlert Sandbox'
+  requirements:
+    _permission: 'administer site configuration'

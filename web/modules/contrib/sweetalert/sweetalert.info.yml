@@ -1,0 +1,9 @@
+name: SweetAlert
+type: module
+description: "A beautiful, responsive, customizable, accessible (WAI-ARIA) replacement for JavaScript's popup boxes."
+core_version_requirement: ^9 || ^10
+
+# Information added by Drupal.org packaging script on 2023-02-27
+version: '2.0.1'
+project: 'sweetalert'
+datestamp: 1677534977
