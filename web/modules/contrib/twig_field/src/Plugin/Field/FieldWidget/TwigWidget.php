@@ -4,9 +4,12 @@ namespace Drupal\twig_field\Plugin\Field\FieldWidget;
 
 use Drupal\codemirror_editor\CodeMirrorPluginTrait;
 use Drupal\Core\Entity\Entity\EntityViewDisplay;
+use Drupal\Core\Extension\ModuleHandlerInterface;
+use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\WidgetBase;
 use Drupal\Core\Form\FormStateInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Defines the Twig field widget.
@@ -22,6 +25,33 @@ class TwigWidget extends WidgetBase {
   use CodeMirrorPluginTrait;
 
   public const REQUIRED_CODEMIRROR_MODES = ['xml', 'twig', 'javascript', 'css'];
+
+  /**
+   * @var \Drupal\Core\Extension\ModuleHandlerInterface
+   */
+  protected $moduleHandler;
+
+  /**
+   * {@inheritdoc}
+   */
+  public function __construct($plugin_id, $plugin_definition, FieldDefinitionInterface $field_definition, array $settings, array $third_party_settings, ModuleHandlerInterface $moduleHandler) {
+    parent::__construct($plugin_id, $plugin_definition, $field_definition, $settings, $third_party_settings);
+    $this->moduleHandler = $moduleHandler;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
+    return new static(
+      $plugin_id,
+      $plugin_definition,
+      $configuration['field_definition'],
+      $configuration['settings'],
+      $configuration['third_party_settings'],
+      $container->get('module_handler'),
+    );
+  }
 
   /**
    * {@inheritdoc}
@@ -128,6 +158,13 @@ class TwigWidget extends WidgetBase {
 
     $entity_type = $this->fieldDefinition->getTargetEntityTypeId();
     $options['Other'][$entity_type] = $entity_type;
+
+    // Invoke hook_twig_twig_field_widget_variable_alter function.
+    $alter_context = [
+      'entity_type' => $entity_type,
+      'field_definition' => clone $this->fieldDefinition,
+    ];
+    $this->moduleHandler->alter('twig_field_widget_variable', $options, $alter_context);
 
     $element['footer']['variables'] = [
       '#type' => 'select',

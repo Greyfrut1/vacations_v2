@@ -3,7 +3,7 @@
  * Twig field behaviors.
  */
 
-(function ($, Drupal) {
+(function ($, Drupal, once) {
 
   'use strict';
 
@@ -13,7 +13,7 @@
   Drupal.behaviors.twigFieldEditor = {
     attach: function (context) {
 
-      $('[data-tf-insert]').once().click(function (event) {
+      $(once('twigFieldEditor', '[data-tf-insert]')).on( 'click', function (event) {
         var widgetId = $(this).data('tf-insert');
         var $select = $(context).find('[data-tf-variables="' + widgetId + '"]');
         var variable = $select.val();
@@ -25,9 +25,8 @@
           $select.val('');
         }
         event.preventDefault();
-      })
-
+      });
     }
   };
 
-} (jQuery, Drupal));
+} (jQuery, Drupal, once));

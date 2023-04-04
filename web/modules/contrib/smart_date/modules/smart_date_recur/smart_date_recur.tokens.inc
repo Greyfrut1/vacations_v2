@@ -108,6 +108,10 @@ function smart_date_recur_tokens($type, $tokens, array $data, array $options, Bu
       }
     }
     $property_name = $parts[0];
+    // Stop here if it's not a recurring property.
+    if (!in_array($property_name, ['prev', 'next', 'rule_text', 'upcoming', 'past'])) {
+      continue;
+    }
     // Now parse out the pieces of the token name.
     if ($property_name == 'rule_text') {
       // If a delta specified, only use that value.
@@ -127,7 +131,7 @@ function smart_date_recur_tokens($type, $tokens, array $data, array $options, Bu
         $rrules_processed[] = $rrid;
       }
       // @todo More structure or markup around mutiple values?
-      $output = \Drupal::service('renderer')->render($rule_text);
+      $output = \Drupal::service('renderer')->renderPlain($rule_text);
       $replacements[$original] = $output;
       continue;
     } // End rule_text token processing.
@@ -207,7 +211,7 @@ function smart_date_recur_tokens($type, $tokens, array $data, array $options, Bu
       }
     }
 
-    $output = \Drupal::service('renderer')->render($values);
+    $output = \Drupal::service('renderer')->renderPlain($values);
     $replacements[$original] = $output;
   }
   return $replacements;

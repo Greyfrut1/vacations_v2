@@ -12,7 +12,7 @@ final class FormatterTest extends TestBase {
   /**
    * {@inheritdoc}
    */
-  protected $defaultTheme = 'classy';
+  protected $defaultTheme = 'stable9';
 
   /**
    * {@inheritdoc}
@@ -160,7 +160,7 @@ final class FormatterTest extends TestBase {
    * {@inheritdoc}
    */
   protected function getWrapperSelector() {
-    return '.field--name-field-code .cme-wrapper';
+    return '.cme-wrapper';
   }
 
 }

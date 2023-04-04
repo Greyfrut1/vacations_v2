@@ -12,7 +12,7 @@ final class EditorTest extends TestBase {
   /**
    * {@inheritdoc}
    */
-  protected $defaultTheme = 'classy';
+  protected $defaultTheme = 'stable9';
 
   /**
    * Test callback.
@@ -37,7 +37,7 @@ final class EditorTest extends TestBase {
     $this->assertEditorOption('styleActiveLine', FALSE);
     $this->assertEditorOption('autoRefresh', ['delay' => 3000]);
     $this->assertEditorHeight(NULL);
-    $this->assertScrollerMinHeight(270);
+    $this->assertScrollerMinHeight(225);
     $toolbar_xpath = '//div[contains(@class, "js-form-item-editor-1")]//div[@class = "cme-toolbar"]';
     $this->assertElementExist($toolbar_xpath);
     self::assertCount(13, $this->xpath($toolbar_xpath . '/*[@class = "cme-button"]'));

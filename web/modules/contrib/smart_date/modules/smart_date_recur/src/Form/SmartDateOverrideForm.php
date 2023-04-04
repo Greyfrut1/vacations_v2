@@ -7,9 +7,9 @@ use Drupal\Core\Ajax\PrependCommand;
 use Drupal\Core\Ajax\RemoveCommand;
 use Drupal\Core\Ajax\ReplaceCommand;
 use Drupal\Core\Datetime\DrupalDateTime;
+use Drupal\Core\DependencyInjection\ClassResolverInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormBase;
-use Drupal\Core\Form\FormBuilderInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\RendererInterface;
 use Drupal\Core\Url;
@@ -25,6 +25,12 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * @ingroup smart_date_recur
  */
 class SmartDateOverrideForm extends FormBase {
+  /**
+   * The class resolver service.
+   *
+   * @var \Drupal\Core\DependencyInjection\ClassResolverInterface
+   */
+  protected $classResolver;
 
   /**
    * Definition of form entity type manager service.
@@ -41,19 +47,12 @@ class SmartDateOverrideForm extends FormBase {
   protected $renderer;
 
   /**
-   * Form builder will be used via Dependency Injection.
-   *
-   * @var \Drupal\Core\Form\FormBuilderInterface
-   */
-  protected $formBuilder;
-
-  /**
    * {@inheritdoc}
    */
-  public function __construct(EntityTypeManagerInterface $entityTypeManager, RendererInterface $renderer, FormBuilderInterface $form_builder) {
+  public function __construct(EntityTypeManagerInterface $entityTypeManager, RendererInterface $renderer, ClassResolverInterface $classResolver) {
     $this->entityTypeManager = $entityTypeManager;
     $this->renderer = $renderer;
-    $this->formBuilder = $form_builder;
+    $this->classResolver = $classResolver;
   }
 
   /**
@@ -68,7 +67,7 @@ class SmartDateOverrideForm extends FormBase {
     return new static(
       $container->get('entity_type.manager'),
       $container->get('renderer'),
-      $container->get('form_builder'),
+      $container->get('class_resolver'),
     );
   }
 
@@ -202,13 +201,12 @@ class SmartDateOverrideForm extends FormBase {
       return $response;
     }
     $form_state->disableRedirect();
-    /** @var \Drupal\Core\Form\FormBuilderInterface $formBuilder */
-    $formBuilder = $this->formBuilder;
     /** @var \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager */
     $entityTypeManager = $this->entityTypeManager;
     /** @var \Drupal\smart_date_recur\Entity\SmartDateRule $rrule */
     $rrule = $entityTypeManager->getStorage('smart_date_rule')->load($form_state->getValue('rrule'));
-    $instanceController = new Instances($formBuilder, $entityTypeManager);
+    /** @var \Drupal\smart_date_recur\Controller\Instances $instanceController */
+    $instanceController = $this->classResolver->getInstanceFromDefinition(Instances::class);
     $instanceController->setSmartDateRule($rrule);
     $instanceController->setUseAjax(TRUE);
     $response = new AjaxResponse();
@@ -223,13 +221,12 @@ class SmartDateOverrideForm extends FormBase {
 
     $this->override($form_state);
     if (!isset($form['ajaxcancel'])) {
-      /** @var \Drupal\Core\Form\FormBuilderInterface $formBuilder */
-      $formBuilder = $this->formBuilder;
       /** @var \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager */
       $entityTypeManager = $this->entityTypeManager;
       /** @var \Drupal\smart_date_recur\Entity\SmartDateRule $rrule */
       $rrule = $entityTypeManager->getStorage('smart_date_rule')->load($form_state->getValue('rrule'));
-      $instanceController = new Instances($formBuilder, $entityTypeManager);
+      /** @var \Drupal\smart_date_recur\Controller\Instances $instanceController */
+      $instanceController = $this->classResolver->getInstanceFromDefinition(Instances::class);
       // Force refresh of parent entity.
       $instanceController->applyChanges($rrule);
       // Output message about operation performed, if not using AJAX.

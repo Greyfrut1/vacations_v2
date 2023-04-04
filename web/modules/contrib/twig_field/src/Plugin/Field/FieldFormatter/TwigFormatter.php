@@ -4,8 +4,11 @@ namespace Drupal\twig_field\Plugin\Field\FieldFormatter;
 
 use Drupal\Core\Cache\Cache;
 use Drupal\Core\Entity\Entity\EntityViewDisplay;
+use Drupal\Core\Extension\ModuleHandlerInterface;
+use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FormatterBase;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Plugin implementation of the Twig field formatter.
@@ -19,6 +22,35 @@ use Drupal\Core\Field\FormatterBase;
  * )
  */
 class TwigFormatter extends FormatterBase {
+
+  /**
+   * @var \Drupal\Core\Extension\ModuleHandlerInterface
+   */
+  protected $moduleHandler;
+
+  /**
+   * {@inheritdoc}
+   */
+  public function __construct($plugin_id, $plugin_definition, FieldDefinitionInterface $field_definition, array $settings, $label, $view_mode, array $third_party_settings, ModuleHandlerInterface $moduleHandler) {
+    parent::__construct($plugin_id, $plugin_definition, $field_definition, $settings, $label, $view_mode, $third_party_settings);
+    $this->moduleHandler = $moduleHandler;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
+    return new static(
+      $plugin_id,
+      $plugin_definition,
+      $configuration['field_definition'],
+      $configuration['settings'],
+      $configuration['label'],
+      $configuration['view_mode'],
+      $configuration['third_party_settings'],
+      $container->get('module_handler'),
+    );
+  }
 
   /**
    * {@inheritdoc}
@@ -68,6 +100,13 @@ class TwigFormatter extends FormatterBase {
     // Other context.
     $entity_type = $this->fieldDefinition->getTargetEntityTypeId();
     $context[$entity_type] = $entity;
+
+    // Invoke hook_twig_field_formatter_variable_alter function.
+    $alter_context = [
+      'entity_type' => $entity_type,
+      'field_definition' => clone $this->fieldDefinition,
+    ];
+    $this->moduleHandler->alter('twig_field_formatter_variable', $context, $alter_context);
 
     foreach ($items as $delta => $item) {
       $elements[$delta] = [

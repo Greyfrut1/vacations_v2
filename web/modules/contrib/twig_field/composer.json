@@ -9,6 +9,6 @@
     "license": "GPL-2.0+",
     "require": {
         "drupal/codemirror_editor": "^1.5",
-        "drupal/core": "^8.9 || ^9.0"
+        "drupal/core": "^9.3 || ^10.0"
     }
 }

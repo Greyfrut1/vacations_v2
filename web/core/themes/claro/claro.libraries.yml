@@ -5,7 +5,6 @@ global-styling:
       css/base/elements.css: {}
       css/base/typography.css: {}
       css/base/print.css: {}
-      css/base/mystyle.css: {}
     component:
       css/classy/components/container-inline.css: {}
       css/classy/components/exposed-filters.css: {}
@@ -196,7 +195,6 @@ checkbox:
   version: VERSION
   js:
     js/checkbox.js: {}
-    js/myscript.js: {}
   dependencies:
     - core/drupal
 

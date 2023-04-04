@@ -193,6 +193,12 @@ field.widget.settings.smartdate_timezone:
     hide_date:
       type: boolean
       label: 'Hide end date unless different'
+    separator:
+      type: string
+      label: 'Separator'
+    add_abbreviations:
+      type: string
+      label: 'Add abbreviations'
 
 smart_date.smart_date_format.*:
   type: config_entity

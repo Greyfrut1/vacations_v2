@@ -54,7 +54,9 @@ class SmartDateTimezoneWidget extends SmartDateInlineWidget implements Container
     }
 
     if ($this->getSetting('allowed_timezones')) {
-      $timezones = $this->formatTimezoneOptions($this->getSetting('allowed_timezones'));
+      $allowed_timezone_values = $this->getSetting('allowed_timezones');
+      $allowed_timezone_options = array_combine($allowed_timezone_values, $allowed_timezone_values);
+      $timezones = $this->formatTimezoneOptions($allowed_timezone_options);
     }
     elseif ($this->getSetting('add_abbreviations')) {
       $timezones = $this->formatTimezoneOptions($this->getTimezones(FALSE));

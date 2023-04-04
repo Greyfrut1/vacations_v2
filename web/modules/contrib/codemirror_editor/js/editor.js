@@ -26,12 +26,15 @@
   Drupal.behaviors.codeMirrorEditor = {
 
     attach: function () {
-      if (typeof CodeMirror === 'undefined' && warn) {
-        alert(Drupal.t('CodeMirror library is not loaded!'));
+      var $textAreas = $(once('codemirror-editor', 'textarea[data-codemirror]'));
+
+      // Only check library when at least once CodeMirror textarea presented on
+      // the page.
+      if ($textAreas.length && typeof CodeMirror === 'undefined' && warn) {
+        console.warn(Drupal.t('CodeMirror library is not loaded!'));
         warn = false;
         return;
-      }
-      var $textAreas = $(once('codemirror-editor', 'textarea[data-codemirror]'))
+      }      
       $.each($textAreas, function (key, textArea) {
         init(textArea);
       });

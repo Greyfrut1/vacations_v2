@@ -5,8 +5,6 @@
 
 (function ($, Drupal, baseUrl, cookies) {
 
-  console.log('Cookies', cookies);
-
   'use strict';
 
   /**
